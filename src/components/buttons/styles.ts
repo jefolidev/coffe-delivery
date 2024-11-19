@@ -1,11 +1,21 @@
 import styled from 'styled-components'
 
+export type AddCartButtonVariant = 'primary' | 'secondary'
+
+interface AddCartButtonProps {
+  variant: AddCartButtonVariant
+}
+
 const DefaultButton = styled.button`
   border: 0;
   cursor: pointer;
   border-radius: 6px;
 
   text-transform: uppercase;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
 
 export const SubmitButtonContainer = styled(DefaultButton)`
@@ -44,12 +54,25 @@ export const RemoveButtonContainer = styled(DefaultButton)`
   }
 `
 
-export const AddCartButtonContainer = styled(DefaultButton)`
-  background-color: ${(props) => props.theme['purple-800']};
+const addCartButtonVariant = {
+  primary: {
+    default: 'purple-800',
+    hover: 'purple-500',
+  },
+  secondary: {
+    default: 'yellow-200',
+    hover: 'yellow-100',
+  },
+}
+
+export const AddCartButtonContainer = styled(DefaultButton)<AddCartButtonProps>`
+  background-color: ${(props) =>
+    props.theme[`${addCartButtonVariant[props.variant].default}`]};
 
   padding: 0.5rem;
 
   &:hover {
-    background-color: ${(props) => props.theme['purple-500']};
+    background-color: ${(props) =>
+      props.theme[`${addCartButtonVariant[props.variant].hover}`]};
   }
 `

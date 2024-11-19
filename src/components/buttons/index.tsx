@@ -1,14 +1,20 @@
-import cartIcon from '../../assets/icons/cart.svg'
+import mainCartIcon from '../../assets/icons/cart-main.svg'
+import secCartIcon from '../../assets/icons/cart-secondary.svg'
 import trashIcon from '../../assets/icons/trash.svg'
 
 import {
   AddCartButtonContainer,
+  type AddCartButtonVariant,
   RemoveButtonContainer,
   SubmitButtonContainer,
 } from './styles'
 
-export interface ButtonProps {
+interface ButtonProps {
   content: string
+}
+
+interface AddCartButtonProps {
+  variant?: AddCartButtonVariant
 }
 
 export function SubmitButton({ content }: ButtonProps) {
@@ -23,10 +29,14 @@ export function RemoveButton({ content }: ButtonProps) {
   )
 }
 
-export function AddCartButton() {
+export function AddCartButton({ variant = 'primary' }: AddCartButtonProps) {
   return (
-    <AddCartButtonContainer>
-      <img src={cartIcon} alt="Ícone de lixo roxo" />
+    <AddCartButtonContainer variant={variant}>
+      {variant === 'primary' ? (
+        <img src={mainCartIcon} alt="Ícone de lixo roxo" />
+      ) : (
+        <img src={secCartIcon} alt="Ícone de lixo amarelo" />
+      )}
     </AddCartButtonContainer>
   )
 }

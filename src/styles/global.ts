@@ -49,6 +49,39 @@ export const GlobalStyles = createGlobalStyle`
         margin: 0;
       }
    
+      h1, h2 {
+          font-family: "Baloo 2", system-ui;
+        } 
+        
+        h1 { 
+            color: ${(props) => props.theme['gray-900']};
+            font-size: var(--title-xl);
+            font-weight: 800;
+            line-height: 130%;
+        }
 
+        h2 {
+            color: ${(props) => props.theme['gray-800']}
+        }
+        
+        span, label, p { 
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+        }
+
+        span, p {
+            line-height: 1.3;
+        }
+            
+        span { 
+            color: ${(props) => props.theme['gray-800']};
+            font-size: var(--text-lg);
+        }
+
+        p {
+            color: ${(props) => props.theme['gray-600']};
+            font-size: var(--text-sm);
+        }
+        
 
 `
