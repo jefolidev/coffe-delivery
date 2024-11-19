@@ -1,9 +1,6 @@
 import styled from 'styled-components'
 
-export const MainContainer = styled.main`
-  max-width: 70rem;
-  margin: 0 auto;
-`
+export const MainContainer = styled.main``
 
 export const HeroWrapper = styled.div`
   display: flex;
@@ -12,7 +9,7 @@ export const HeroWrapper = styled.div`
   gap: 3.5rem;
 
   margin-top: 6rem;
-  margin-bottom: 8.75rem;
+  margin-bottom: 6.75rem;
 `
 
 export const HeroTextWrapper = styled.div`

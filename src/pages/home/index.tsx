@@ -4,20 +4,19 @@ import {
   HeroText,
   HeroTextWrapper,
   HeroWrapper,
-  MainContainer,
 } from './styles'
 
 import heroImg from '../../assets/brand.svg'
 
 import cartIcon from '../../assets/icons/hero-icons/cart.svg'
-import packetIcon from '../../assets/icons/hero-icons/packet.svg'
 import clockIcon from '../../assets/icons/hero-icons/clock.svg'
 import coffeeIcon from '../../assets/icons/hero-icons/coffee.svg'
-
+import packetIcon from '../../assets/icons/hero-icons/packet.svg'
+import { CoffeeList } from './components/coffe-list'
 
 export function Home() {
   return (
-    <MainContainer>
+    <>
       <HeroWrapper>
         <HeroTextWrapper>
           <h1>Encontre o café perfeito para qualquer hora do dia</h1>
@@ -49,6 +48,8 @@ export function Home() {
           alt="Copo de café de plástico na frente de uma onde amarela ao lado de café moídos"
         />
       </HeroWrapper>
-    </MainContainer>
+
+      <CoffeeList />
+    </>
   )
 }

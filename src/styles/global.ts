@@ -49,7 +49,7 @@ export const GlobalStyles = createGlobalStyle`
         margin: 0;
       }
    
-      h1, h2 {
+      h1, h2, h3{
           font-family: "Baloo 2", system-ui;
         } 
         
@@ -57,19 +57,22 @@ export const GlobalStyles = createGlobalStyle`
             color: ${(props) => props.theme['gray-900']};
             font-size: var(--title-xl);
             font-weight: 800;
-            line-height: 130%;
-        }
-
-        h2 {
-            color: ${(props) => props.theme['gray-800']}
         }
         
+        h3 {
+            font-size: var(--title-sm);
+            font-weight: 700;
+
+            color: ${(props) => props.theme['gray-800']};
+            margin: 0;
+        }
+
         span, label, p { 
             font-family: 'Roboto', sans-serif;
             font-weight: 400;
         }
 
-        span, p {
+        h1, h2, h3, span, p {
             line-height: 1.3;
         }
             

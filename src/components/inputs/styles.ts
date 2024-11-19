@@ -31,6 +31,7 @@ export const InputWrapper = styled.div`
   align-items: center;
 
   max-width: 9rem;
+  width: 4.5rem;
   height: 2rem;
   padding: 0.5rem;
 

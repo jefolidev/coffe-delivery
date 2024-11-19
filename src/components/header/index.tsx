@@ -1,5 +1,10 @@
 import { AddCartButton } from '../buttons'
-import { ActionsWrapper, HeaderContainer, LocationContainer } from './styles'
+import {
+  ActionsWrapper,
+  HeaderContainer,
+  LocationContainer,
+  LocationText,
+} from './styles'
 
 import locationIcon from '../../assets/icons/location-pin.svg'
 import logo from '../../assets/logo.svg'
@@ -12,7 +17,7 @@ export function Header() {
       <ActionsWrapper>
         <LocationContainer>
           <img src={locationIcon} alt="Icone de Pino de Localização" />
-          <span>Fortaleza, CE</span>
+          <LocationText>Fortaleza, CE</LocationText>
         </LocationContainer>
         <AddCartButton variant="secondary" />
       </ActionsWrapper>

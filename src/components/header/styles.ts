@@ -22,10 +22,11 @@ export const LocationContainer = styled.div`
 
   background-color: ${(props) => props.theme['purple-300']};
 
+  padding: 0.5rem;
+  border-radius: 6px;
+`
+export const LocationText = styled.span`
   color: ${(props) => props.theme['purple-800']};
   font-size: var(--text-sm);
   font-weight: 400;
-
-  padding: 0.5rem;
-  border-radius: 6px;
 `
