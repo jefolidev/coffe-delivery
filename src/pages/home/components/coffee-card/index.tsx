@@ -12,29 +12,33 @@ import {
   CoffeeTagContent,
 } from './styles'
 
-import CoffeeExpress from '../../../../assets/coffees/Coffee-1.svg'
+import type { CoffeeCardsProps } from '../coffe-list'
 
-export default function CoffeeCard() {
+export default function CoffeeCard({
+  name,
+  description,
+  price,
+  tags,
+  image_path,
+}: CoffeeCardsProps) {
   return (
     <CoffeeCardContainer>
-      <img src={CoffeeExpress} alt="" />
+      <img src={image_path} alt="" />
       <CoffeeTagContainer>
-        <CoffeeTagContent>Gelado</CoffeeTagContent>
-        <CoffeeTagContent>Tradicional</CoffeeTagContent>
+        {tags.map((tag) => {
+          return <CoffeeTagContent key={tag}>{tag}</CoffeeTagContent>
+        })}
       </CoffeeTagContainer>
 
       <CoffeeCardContent>
-        <h3>Café Preto</h3>
-        <CoffeeCardDescription>
-          Tradicional Expresso Tradicional O tradicional café feito com água
-          quente e grãos moídos.
-        </CoffeeCardDescription>
+        <h3>{name}</h3>
+        <CoffeeCardDescription>{description}</CoffeeCardDescription>
       </CoffeeCardContent>
 
       <CoffeeCardBuyContainer>
         <CoffeeCardPrice>
           <CoffeCardUnitValue>
-            R$ <CoffeeCardPrice>9,90</CoffeeCardPrice>
+            R$ <CoffeeCardPrice>{price}</CoffeeCardPrice>
           </CoffeCardUnitValue>
         </CoffeeCardPrice>
 

@@ -35,4 +35,5 @@ export const HeroItem = styled.div`
 export const HeroText = styled.span`
   font-size: var(--text-md);
   color: ${(props) => props.theme['gray-700']};
+  margin: auto 0;
 `

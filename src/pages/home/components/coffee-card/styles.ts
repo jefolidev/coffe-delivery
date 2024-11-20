@@ -11,12 +11,11 @@ export const CoffeeCardContainer = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-
-  padding: 0 1.25rem;
 `
 
 export const CoffeeTagContainer = styled.div`
   display: flex;
+  gap: .5rem;
   justify-content: center;
 `
 
