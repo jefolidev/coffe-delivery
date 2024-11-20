@@ -70,9 +70,27 @@ export const AddCartButtonContainer = styled(DefaultButton)<AddCartButtonProps>`
     props.theme[`${addCartButtonVariant[props.variant].default}`]};
 
   padding: 0.5rem;
+  position: relative;
 
   &:hover {
     background-color: ${(props) =>
       props.theme[`${addCartButtonVariant[props.variant].hover}`]};
   }
+`
+
+export const CartButtonItensCounter = styled.p`
+  position: absolute;
+  background-color: ${(props) => props.theme['yellow-800']};
+  color: white;
+  display: flex;
+  width: 1rem;
+  height: 1rem;
+  padding: 0.25rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 9999rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  bottom: 1rem;
+  left: 1.5rem;
 `

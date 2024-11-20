@@ -12,18 +12,30 @@ import {
   CoffeeTagContent,
 } from './styles'
 
-import type { CoffeeCardsProps } from '../coffe-list'
+import type { CoffeeItemProps } from '../coffe-list'
+
+interface CoffeeCardProps extends CoffeeItemProps {
+  quantity?: number
+  onClick: (coffee: CoffeeItemProps, quantity: number) => void
+  onInputAmountValueChange:
+    | React.ChangeEventHandler<HTMLInputElement>
+    | undefined
+}
 
 export default function CoffeeCard({
+  id,
   name,
   description,
   price,
+  quantity,
   tags,
   image_path,
-}: CoffeeCardsProps) {
+  onClick,
+  onInputAmountValueChange,
+}: CoffeeCardProps) {
   return (
     <CoffeeCardContainer>
-      <img src={image_path} alt="" />
+      <img src={image_path} alt={`Imagem do Café: ${name}`} />
       <CoffeeTagContainer>
         {tags.map((tag) => {
           return <CoffeeTagContent key={tag}>{tag}</CoffeeTagContent>
@@ -36,15 +48,20 @@ export default function CoffeeCard({
       </CoffeeCardContent>
 
       <CoffeeCardBuyContainer>
-        <CoffeeCardPrice>
-          <CoffeCardUnitValue>
-            R$ <CoffeeCardPrice>{price}</CoffeeCardPrice>
-          </CoffeCardUnitValue>
-        </CoffeeCardPrice>
+        <CoffeCardUnitValue>
+          R$ <CoffeeCardPrice>{price}</CoffeeCardPrice>
+        </CoffeCardUnitValue>
 
         <CoffeeCardAddToCartContainer>
-          <InputNumber placeholder="1" />
-          <AddCartButton />
+          <InputNumber placeholder="1" onChange={onInputAmountValueChange} />
+          <AddCartButton
+            onClick={() =>
+              onClick(
+                { id, name, price, description, tags, image_path },
+                quantity
+              )
+            }
+          />
         </CoffeeCardAddToCartContainer>
       </CoffeeCardBuyContainer>
     </CoffeeCardContainer>

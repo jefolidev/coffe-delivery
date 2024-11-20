@@ -8,22 +8,22 @@ import {
 import minusIcon from '../../assets/icons/minus.svg'
 import plusIcon from '../../assets/icons/plus.svg'
 
-interface InputProps {
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   placeholder: string
 }
 
-export function InputText({ placeholder }: InputProps) {
-  return <InputTextContainer type="text" placeholder={placeholder} />
+export function InputText({ ...rest }: InputProps) {
+  return <InputTextContainer type="text" {...rest} />
 }
 
-export function InputNumber({ placeholder }: InputProps) {
+export function InputNumber({ ...rest }: InputProps) {
   return (
     <InputWrapper>
       <InputNumberButton type="button">
         <img src={minusIcon} alt="" />
       </InputNumberButton>
 
-      <InputNumberContainer type="number" min={0} placeholder={placeholder} />
+      <InputNumberContainer type="number" min={0} {...rest} />
 
       <InputNumberButton type="button">
         <img src={plusIcon} alt="" />

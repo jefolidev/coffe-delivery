@@ -15,7 +15,7 @@ export const CoffeeCardContainer = styled.div`
 
 export const CoffeeTagContainer = styled.div`
   display: flex;
-  gap: .5rem;
+  gap: 0.5rem;
   justify-content: center;
 `
 
