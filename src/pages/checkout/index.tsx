@@ -36,6 +36,26 @@ import { Divisor } from './components/coffee-view/styles'
 export function Checkout() {
   const { productsInCart } = useCoffee()
 
+  const totalValueOfEachProductInCart = productsInCart.map((item) => {
+    return item.price * item.quantity
+  })
+
+  const totalValueOfAllProductsInCart = totalValueOfEachProductInCart.reduce(
+    (total, item) => total + item,
+    0
+  )
+
+  const stringTotalValueOfAllProductsInCart = String(
+    totalValueOfAllProductsInCart.toFixed(2)
+  ).replace('.', ',')
+
+  const totalValueOfProductsAndFrete = (
+    totalValueOfAllProductsInCart + 3.5
+  ).toFixed(2)
+  const stringTotalValueOfProductsAndFrete = String(
+    totalValueOfProductsAndFrete
+  ).replace('.', ',')
+
   return (
     <CheckoutContainer>
       <AddressAndPaymentInformationContainer>
@@ -77,36 +97,48 @@ export function Checkout() {
       </AddressAndPaymentInformationContainer>
       <OrderInformationContainer>
         <h3>Cafés Selecionados</h3>
-        <OrderInformationContainer>
-          <OrderInformationContent>
-            <OrderCoffeeView>
-              {productsInCart.map((item) => {
-                return (
-                  <div key={item.id}>
-                    <CoffeeInOrderView {...item} />
-                    <Divisor />
-                  </div>
-                )
-              })}
-            </OrderCoffeeView>
-            <OrderPriceWrapper>
-              <TotalItensPriceRow>
-                <TextOrder>Total de itens</TextOrder>
-                <ValueOrder>R$ 29,70</ValueOrder>
-              </TotalItensPriceRow>
-              <FretePriceRow>
-                <TextOrder>Entrega</TextOrder>
-                <ValueOrder>R$ 3,50</ValueOrder>
-              </FretePriceRow>
-              <TotalPriceRow>
-                <TotalOrderValue>Total</TotalOrderValue>
-                <TotalOrderValue>R$ 33,20</TotalOrderValue>
-              </TotalPriceRow>
-            </OrderPriceWrapper>
 
-            <SubmitButton content="Confirmar Pedido" />
-          </OrderInformationContent>
-        </OrderInformationContainer>
+        <OrderInformationContent>
+          {productsInCart.length < 1 ? (
+            <h3>Nada adicionado ao carrinho</h3>
+          ) : (
+            <>
+              <OrderCoffeeView>
+                {productsInCart.map((item) => {
+                  return (
+                    <div key={item.id}>
+                      <CoffeeInOrderView {...item} />
+                      <Divisor />
+                    </div>
+                  )
+                })}
+              </OrderCoffeeView>
+              <OrderPriceWrapper>
+                <TotalItensPriceRow>
+                  <TextOrder>Total de itens</TextOrder>
+                  <ValueOrder>
+                    {`R$ ${stringTotalValueOfAllProductsInCart}`}
+                  </ValueOrder>
+                </TotalItensPriceRow>
+                <FretePriceRow>
+                  <TextOrder>Entrega</TextOrder>
+                  <ValueOrder>R$ 3,50</ValueOrder>
+                </FretePriceRow>
+                <TotalPriceRow>
+                  <TotalOrderValue>Total</TotalOrderValue>
+                  <TotalOrderValue>
+                    R$ {stringTotalValueOfProductsAndFrete}
+                  </TotalOrderValue>
+                </TotalPriceRow>
+              </OrderPriceWrapper>
+
+              <SubmitButton
+                content="Confirmar Pedido"
+                disabled={productsInCart.length < 1}
+              />
+            </>
+          )}
+        </OrderInformationContent>
       </OrderInformationContainer>
     </CheckoutContainer>
   )

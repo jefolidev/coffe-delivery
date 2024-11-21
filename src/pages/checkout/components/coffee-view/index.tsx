@@ -17,7 +17,10 @@ export function CoffeeInOrderView({
   quantity,
   price,
 }: CoffeeCartData) {
-  const singularOrderPrice = String(price * quantity)
+  const singularOrderPrice = (price * quantity).toFixed(2)
+  const strginSingularOrderPrice = String(singularOrderPrice)
+    .slice(0, 5)
+    .replace('.', ',')
 
   return (
     <CoffeeOrderCardContainer>
@@ -26,7 +29,6 @@ export function CoffeeInOrderView({
           src={`./src/assets/coffees/${image_path}.svg`}
           alt=""
         />
-
         <CoffeeOrderCardNameAndQuantitySection>
           <CoffeeOrderCardName>{coffee_name}</CoffeeOrderCardName>
           <CoffeeOrderCardQuantity>
@@ -35,9 +37,7 @@ export function CoffeeInOrderView({
           </CoffeeOrderCardQuantity>
         </CoffeeOrderCardNameAndQuantitySection>
       </CoffeeOrderCardInformationContainer>
-      <CoffeeOrderCardValue>
-        R$ {singularOrderPrice.slice(0, 5)}
-      </CoffeeOrderCardValue>
+      <CoffeeOrderCardValue>R$ {strginSingularOrderPrice}</CoffeeOrderCardValue>
     </CoffeeOrderCardContainer>
   )
 }

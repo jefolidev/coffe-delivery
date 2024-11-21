@@ -52,7 +52,10 @@ export default function CoffeeCard({
 
       <CoffeeCardBuyContainer>
         <CoffeCardUnitValue>
-          R$ <CoffeeCardPrice>{price}</CoffeeCardPrice>
+          R${' '}
+          <CoffeeCardPrice>
+            {price.toFixed(2).replace('.', ',')}
+          </CoffeeCardPrice>
         </CoffeCardUnitValue>
 
         <CoffeeCardAddToCartContainer>
