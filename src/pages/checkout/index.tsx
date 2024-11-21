@@ -36,6 +36,7 @@ import { Divisor } from './components/coffee-view/styles'
 export function Checkout() {
   const { productsInCart } = useCoffee()
 
+  console.log(productsInCart)
   const totalValueOfEachProductInCart = productsInCart.map((item) => {
     return item.price * item.quantity
   })
@@ -130,12 +131,11 @@ export function Checkout() {
                     R$ {stringTotalValueOfProductsAndFrete}
                   </TotalOrderValue>
                 </TotalPriceRow>
+                <SubmitButton
+                  content="Confirmar Pedido"
+                  disabled={productsInCart.length < 1}
+                />
               </OrderPriceWrapper>
-
-              <SubmitButton
-                content="Confirmar Pedido"
-                disabled={productsInCart.length < 1}
-              />
             </>
           )}
         </OrderInformationContent>

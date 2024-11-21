@@ -32,7 +32,7 @@ export function CoffeeInOrderView({
         <CoffeeOrderCardNameAndQuantitySection>
           <CoffeeOrderCardName>{coffee_name}</CoffeeOrderCardName>
           <CoffeeOrderCardQuantity>
-            <InputNumber placeholder="0" value={quantity} />
+            <InputNumber placeholder="1" value={quantity} />
             <RemoveButton content="Remover" />
           </CoffeeOrderCardQuantity>
         </CoffeeOrderCardNameAndQuantitySection>

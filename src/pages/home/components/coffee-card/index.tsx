@@ -15,11 +15,10 @@ import {
 import type { CoffeeItemProps } from '../coffe-list'
 
 interface CoffeeCardProps extends CoffeeItemProps {
-  quantity?: number
+  quantity: number
   handleAddItemToCart: (coffee: CoffeeItemProps, quantity: number) => void
-  onInputAmountValueChange:
-    | React.ChangeEventHandler<HTMLInputElement>
-    | undefined
+  handleAmountChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  setNewQuantityValue: (newValue: number) => void
 }
 
 export default function CoffeeCard({
@@ -27,11 +26,12 @@ export default function CoffeeCard({
   name,
   description,
   price,
-  quantity = 1,
   tags,
   image_path,
+  quantity,
+  setNewQuantityValue,
   handleAddItemToCart,
-  onInputAmountValueChange,
+  handleAmountChange,
 }: CoffeeCardProps) {
   return (
     <CoffeeCardContainer>
@@ -52,14 +52,18 @@ export default function CoffeeCard({
 
       <CoffeeCardBuyContainer>
         <CoffeCardUnitValue>
-          R${' '}
+          R$
           <CoffeeCardPrice>
             {price.toFixed(2).replace('.', ',')}
           </CoffeeCardPrice>
         </CoffeCardUnitValue>
 
         <CoffeeCardAddToCartContainer>
-          <InputNumber placeholder="1" onChange={onInputAmountValueChange} />
+          <InputNumber
+            quantity={quantity}
+            setNewQuantityValue={setNewQuantityValue}
+            handleAmountChange={handleAmountChange}
+          />
           <AddCartButton
             onClick={() =>
               handleAddItemToCart(

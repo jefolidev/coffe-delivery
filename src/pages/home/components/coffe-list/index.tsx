@@ -188,6 +188,17 @@ export function CoffeeList() {
       : setProductsInCart((prevState) => [...prevState, productToAddInCart])
   }
 
+  function handleQuantityChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const newValue = Math.max(0, Number(e.target.value))
+    setAmountOfProducts(newValue)
+  }
+
+  function setNewQuantityValue(newValue: number) {
+    setAmountOfProducts(Math.max(0, newValue))
+  }
+
+  console.log(amountOfProducts)
+
   return (
     <CoffeeListWrapper>
       <CoffeeHeader>
@@ -198,9 +209,9 @@ export function CoffeeList() {
         {coffeeCard.map((card) => {
           return (
             <CoffeeCard
-              onInputAmountValueChange={(e) =>
-                setAmountOfProducts(Number(e.target.value))
-              }
+              quantity={amountOfProducts}
+              setNewQuantityValue={setNewQuantityValue}
+              handleAmountChange={handleQuantityChange}
               handleAddItemToCart={() =>
                 handleAddProductInCart(card, amountOfProducts)
               }

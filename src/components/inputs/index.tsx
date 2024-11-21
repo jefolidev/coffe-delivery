@@ -1,27 +1,32 @@
 import { InputNumberButton, InputNumberContainer, InputWrapper } from './styles'
 
-import { useState } from 'react'
 import minusIcon from '../../assets/icons/minus.svg'
 import plusIcon from '../../assets/icons/plus.svg'
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  placeholder: string
+  quantity: number
+  placeholder?: string
+  handleAmountChange: React.ChangeEventHandler<HTMLInputElement> | undefined
+  setNewQuantityValue: (newValue: number) => void
 }
 
-export function InputNumber({ ...rest }: InputProps) {
-  const [amount, setAmount] = useState(0)
-
-  function handleValueChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const valueInput = Number(e.target.value)
-
-    setAmount(valueInput >= 0 ? valueInput : 0)
-  }
-
+export function InputNumber({
+  quantity,
+  setNewQuantityValue,
+  handleAmountChange,
+  ...rest
+}: InputProps) {
   function handleAddOneToAmount() {
-    setAmount((prevState) => prevState + 1)
+    setNewQuantityValue(quantity + 1)
   }
   function handleRemoveOneToAmount() {
-    setAmount((prevState) => (prevState > 0 ? prevState - 1 : 0))
+    setNewQuantityValue(quantity - 1)
+  }
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    if (handleAmountChange) {
+      handleAmountChange(e)
+    }
   }
 
   return (
@@ -32,10 +37,10 @@ export function InputNumber({ ...rest }: InputProps) {
 
       <InputNumberContainer
         type="number"
-        value={amount}
+        value={quantity === 0 ? '' : quantity}
         min={0}
         {...rest}
-        onChange={handleValueChange}
+        onChange={handleChange}
       />
 
       <InputNumberButton type="button" onClick={handleAddOneToAmount}>

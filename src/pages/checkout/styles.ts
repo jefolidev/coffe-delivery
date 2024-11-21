@@ -69,7 +69,7 @@ export const OrderInformationContainer = styled.div`
 `
 export const OrderInformationContent = styled.div`
   background-color: ${(props) => props.theme['gray-200']};
-  min-height: 28rem;
+  min-height: 15rem;
   display: flex;
   flex-direction: column;
   border-radius: 0.375rem 2.75rem;
