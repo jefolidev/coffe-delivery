@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import type { CoffeeCartData } from '../../../../context/coffee-context'
 import { useCoffee } from '../../../../hooks/useCoffe'
 import CoffeeCard from '../coffee-card'
@@ -164,8 +164,6 @@ export function CoffeeList() {
     },
   ]
 
-  const productIdAlreadyInCart = productsInCart.map((item) => item.id)
-
   function handleAddProductInCart(coffee: CoffeeItemProps, quantity: number) {
     const productToAddInCart: CoffeeCartData = {
       id: coffee.id,
@@ -174,31 +172,20 @@ export function CoffeeList() {
       price: coffee.price,
     }
 
-    const hasMoreThanOneSameProductInCart = productIdAlreadyInCart.includes(
-      coffee.id
+    const hasMoreThanOneSameProductInCart = productsInCart.some(
+      (item) => item.id === coffee.id
     )
 
-    if (hasMoreThanOneSameProductInCart) {
-      const newQuantityValue = productToAddInCart.quantity + amountOfProducts
-
-      const productWithNewAmount = {
-        ...productToAddInCart,
-        quantity: newQuantityValue,
-      }
-      console.log(`Novo valor ${productWithNewAmount}`)
-    }
-
-    setProductsInCart((prevState) => [...prevState, productToAddInCart])
+    hasMoreThanOneSameProductInCart
+      ? setProductsInCart((prevState) =>
+          prevState.map((item) =>
+            item.id === coffee.id
+              ? { ...item, quantity: item.quantity + amountOfProducts }
+              : item
+          )
+        )
+      : setProductsInCart((prevState) => [...prevState, productToAddInCart])
   }
-
-  function updateTheCoffeeAmout(
-    coffee: CoffeeItemProps,
-    quantityToUpdate: number
-  ) {}
-
-  useEffect(() => {
-    console.log('Carrinho atualizado:', productsInCart)
-  }, [productsInCart])
 
   return (
     <CoffeeListWrapper>
