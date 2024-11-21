@@ -16,7 +16,7 @@ import type { CoffeeItemProps } from '../coffe-list'
 
 interface CoffeeCardProps extends CoffeeItemProps {
   quantity?: number
-  onClick: (coffee: CoffeeItemProps, quantity: number) => void
+  handleAddItemToCart: (coffee: CoffeeItemProps, quantity: number) => void
   onInputAmountValueChange:
     | React.ChangeEventHandler<HTMLInputElement>
     | undefined
@@ -27,15 +27,18 @@ export default function CoffeeCard({
   name,
   description,
   price,
-  quantity,
+  quantity = 1,
   tags,
   image_path,
-  onClick,
+  handleAddItemToCart,
   onInputAmountValueChange,
 }: CoffeeCardProps) {
   return (
     <CoffeeCardContainer>
-      <img src={image_path} alt={`Imagem do Café: ${name}`} />
+      <img
+        src={`./src/assets/coffees/${image_path}.svg`}
+        alt={`Imagem do Café: ${name}`}
+      />
       <CoffeeTagContainer>
         {tags.map((tag) => {
           return <CoffeeTagContent key={tag}>{tag}</CoffeeTagContent>
@@ -56,7 +59,7 @@ export default function CoffeeCard({
           <InputNumber placeholder="1" onChange={onInputAmountValueChange} />
           <AddCartButton
             onClick={() =>
-              onClick(
+              handleAddItemToCart(
                 { id, name, price, description, tags, image_path },
                 quantity
               )

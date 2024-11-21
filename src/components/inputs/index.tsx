@@ -1,9 +1,4 @@
-import {
-  InputNumberButton,
-  InputNumberContainer,
-  InputTextContainer,
-  InputWrapper,
-} from './styles'
+import { InputNumberButton, InputNumberContainer, InputWrapper } from './styles'
 
 import { useState } from 'react'
 import minusIcon from '../../assets/icons/minus.svg'
@@ -11,10 +6,6 @@ import plusIcon from '../../assets/icons/plus.svg'
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   placeholder: string
-}
-
-export function InputText({ ...rest }: InputProps) {
-  return <InputTextContainer type="text" {...rest} />
 }
 
 export function InputNumber({ ...rest }: InputProps) {

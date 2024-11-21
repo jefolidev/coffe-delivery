@@ -6,6 +6,7 @@ export interface CoffeeCartData {
   coffee_name: string
   quantity: number
   price: number
+  image_path: string
 }
 
 interface CoffeeCartProviderProps {
@@ -15,17 +16,12 @@ interface CoffeeCartProviderProps {
 export interface CoffeeCartContextProps {
   productsInCart: CoffeeCartData[]
   setProductsInCart: React.Dispatch<React.SetStateAction<CoffeeCartData[]>>
-  // addProductInCart: (coffeeToAdd: CoffeeCartData) => void
 }
 
 export const CoffeeCartContext = createContext({} as CoffeeCartContextProps)
 
 export function CoffeeCartProvider({ children }: CoffeeCartProviderProps) {
   const [productsInCart, setProductsInCart] = useState<CoffeeCartData[]>([])
-
-  // function addProductInCart(coffeeToAdd: CoffeeCartData) {
-  //   setProductsInCart((prevState) => [...prevState, coffeeToAdd])
-  // }
 
   return (
     <CoffeeCartContext.Provider value={{ productsInCart, setProductsInCart }}>

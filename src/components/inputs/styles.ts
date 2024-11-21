@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const DefaultInput = styled.input`
+export const DefaultInput = styled.input`
   display: flex;
   align-items: center;
 
@@ -12,17 +12,6 @@ const DefaultInput = styled.input`
   &:focus {
     border: 0.5px solid ${(props) => props.theme['yellow-500']};
   }
-`
-
-export const InputTextContainer = styled(DefaultInput)`
-  font-size: var(--text-sm);
-  font-weight: 400;
-
-  width: 27.125rem;
-  padding: 0.75rem;
-
-  background: ${(props) => props.theme['gray-300']};
-  color: ${(props) => props.theme['gray-700']};
 `
 
 export const InputWrapper = styled.div`
@@ -49,7 +38,6 @@ export const InputNumberContainer = styled(DefaultInput)`
 
   text-align: center;
   width: 1rem;
-
   -moz-appearance: none;
   appearance: none;
 

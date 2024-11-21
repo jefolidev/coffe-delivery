@@ -74,6 +74,7 @@ export const GlobalStyles = createGlobalStyle`
 
         h1, h2, h3, span, p {
             line-height: 1.3;
+            margin: 0;
         }
             
         span { 
