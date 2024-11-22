@@ -37,7 +37,7 @@ export function InputNumber({
 
       <InputNumberContainer
         type="number"
-        value={quantity === 0 ? '' : quantity}
+        value={quantity}
         min={0}
         {...rest}
         onChange={handleChange}

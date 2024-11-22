@@ -21,13 +21,13 @@ export function CoffeeInOrderView({
   id,
 }: CoffeeCartData) {
   const [amount, setNewAmount] = useState(quantity)
-  const { setProductsInCart } = useCoffee()
+  const { productsInCart, setProductsInCart } = useCoffee()
+
+  const singularOrderPrice = price * quantity
 
   function handleInputAmountChange(e: React.ChangeEvent<HTMLInputElement>) {
     setNewAmount(Number(e.target.value))
   }
-
-  const singularOrderPrice = price * quantity
 
   const formattedPrice = new Intl.NumberFormat('pt-BR', {
     minimumFractionDigits: 2,
@@ -35,7 +35,18 @@ export function CoffeeInOrderView({
   }).format(singularOrderPrice)
 
   function handleUpdateTheAmountValue(newValue: number) {
-    setNewAmount(Math.max(0, newValue))
+    setNewAmount(newValue)
+
+    if (newValue < 0) {
+      setProductsInCart(productsInCart.filter((item) => item.id !== id))
+    }
+  }
+
+  function handleRemoveItemOfCart() {
+    const productsInCartWithoutCurrentItem = productsInCart.filter(
+      (item) => item.id !== id
+    )
+    setProductsInCart(productsInCartWithoutCurrentItem)
   }
 
   useEffect(() => {
@@ -58,11 +69,11 @@ export function CoffeeInOrderView({
           <CoffeeOrderCardQuantity>
             <InputNumber
               placeholder="0"
-              quantity={quantity}
+              quantity={amount}
               handleAmountChange={handleInputAmountChange}
               setNewQuantityValue={handleUpdateTheAmountValue}
             />
-            <RemoveButton content="Remover" />
+            <RemoveButton content="Remover" onClick={handleRemoveItemOfCart} />
           </CoffeeOrderCardQuantity>
         </CoffeeOrderCardNameAndQuantitySection>
       </CoffeeOrderCardInformationContainer>

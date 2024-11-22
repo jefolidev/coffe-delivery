@@ -42,7 +42,7 @@ export interface CoffeeItemProps {
 }
 
 export function CoffeeList() {
-  const [amountOfProducts, setAmountOfProducts] = useState(1)
+  const [amountOfProducts, setAmountOfProducts] = useState(0)
   const { setProductsInCart, productsInCart } = useCoffee()
 
   const coffeeCard: CoffeeItemProps[] = [
@@ -177,6 +177,10 @@ export function CoffeeList() {
       (item) => item.id === coffee.id
     )
 
+    if (amountOfProducts === 0) {
+      return alert('Insira a quantidade de produtos.')
+    }
+
     hasMoreThanOneSameProductInCart
       ? setProductsInCart((prevState) =>
           prevState.map((item) =>
@@ -190,6 +194,9 @@ export function CoffeeList() {
 
   function handleQuantityChange(e: React.ChangeEvent<HTMLInputElement>) {
     const newValue = Math.max(0, Number(e.target.value))
+
+    // if(e.target.)
+
     setAmountOfProducts(newValue)
   }
 
