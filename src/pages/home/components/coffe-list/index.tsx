@@ -197,8 +197,6 @@ export function CoffeeList() {
     setAmountOfProducts(Math.max(0, newValue))
   }
 
-  console.log(amountOfProducts)
-
   return (
     <CoffeeListWrapper>
       <CoffeeHeader>

@@ -36,26 +36,23 @@ import { Divisor } from './components/coffee-view/styles'
 export function Checkout() {
   const { productsInCart } = useCoffee()
 
-  console.log(productsInCart)
-  const totalValueOfEachProductInCart = productsInCart.map((item) => {
+  const valueOfEachProductInCart = productsInCart.map((item) => {
     return item.price * item.quantity
   })
 
-  const totalValueOfAllProductsInCart = totalValueOfEachProductInCart.reduce(
+  const totalValueOfAllProductsInCart = valueOfEachProductInCart.reduce(
     (total, item) => total + item,
     0
   )
 
-  const stringTotalValueOfAllProductsInCart = String(
-    totalValueOfAllProductsInCart.toFixed(2)
-  ).replace('.', ',')
+  const totalValueOfProductsAndFrete = totalValueOfAllProductsInCart + 3.5
 
-  const totalValueOfProductsAndFrete = (
-    totalValueOfAllProductsInCart + 3.5
-  ).toFixed(2)
-  const stringTotalValueOfProductsAndFrete = String(
-    totalValueOfProductsAndFrete
-  ).replace('.', ',')
+  function formatValueForBRModel(price: number) {
+    return new Intl.NumberFormat('pt-BR', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 3,
+    }).format(price)
+  }
 
   return (
     <CheckoutContainer>
@@ -118,7 +115,9 @@ export function Checkout() {
                 <TotalItensPriceRow>
                   <TextOrder>Total de itens</TextOrder>
                   <ValueOrder>
-                    {`R$ ${stringTotalValueOfAllProductsInCart}`}
+                    {`R$ ${formatValueForBRModel(
+                      totalValueOfAllProductsInCart
+                    )}`}
                   </ValueOrder>
                 </TotalItensPriceRow>
                 <FretePriceRow>
@@ -128,7 +127,9 @@ export function Checkout() {
                 <TotalPriceRow>
                   <TotalOrderValue>Total</TotalOrderValue>
                   <TotalOrderValue>
-                    R$ {stringTotalValueOfProductsAndFrete}
+                    {`R$ ${formatValueForBRModel(
+                      totalValueOfProductsAndFrete
+                    )}`}
                   </TotalOrderValue>
                 </TotalPriceRow>
                 <SubmitButton

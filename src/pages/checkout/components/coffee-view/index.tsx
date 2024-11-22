@@ -1,6 +1,8 @@
+import { useEffect, useState } from 'react'
 import { RemoveButton } from '../../../../components/buttons'
 import { InputNumber } from '../../../../components/inputs'
 import type { CoffeeCartData } from '../../../../context/coffee-context'
+import { useCoffee } from '../../../../hooks/useCoffe'
 import {
   CoffeeOrderCardContainer,
   CoffeeOrderCardImage,
@@ -16,11 +18,33 @@ export function CoffeeInOrderView({
   image_path,
   quantity,
   price,
+  id,
 }: CoffeeCartData) {
-  const singularOrderPrice = (price * quantity).toFixed(2)
-  const strginSingularOrderPrice = String(singularOrderPrice)
-    .slice(0, 5)
-    .replace('.', ',')
+  const [amount, setNewAmount] = useState(quantity)
+  const { setProductsInCart } = useCoffee()
+
+  function handleInputAmountChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setNewAmount(Number(e.target.value))
+  }
+
+  const singularOrderPrice = price * quantity
+
+  const formattedPrice = new Intl.NumberFormat('pt-BR', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 3,
+  }).format(singularOrderPrice)
+
+  function handleUpdateTheAmountValue(newValue: number) {
+    setNewAmount(Math.max(0, newValue))
+  }
+
+  useEffect(() => {
+    setProductsInCart((prevState) =>
+      prevState.map((item) => {
+        return item.id === id ? { ...item, quantity: amount } : item
+      })
+    )
+  }, [amount, id, setProductsInCart])
 
   return (
     <CoffeeOrderCardContainer>
@@ -32,12 +56,17 @@ export function CoffeeInOrderView({
         <CoffeeOrderCardNameAndQuantitySection>
           <CoffeeOrderCardName>{coffee_name}</CoffeeOrderCardName>
           <CoffeeOrderCardQuantity>
-            <InputNumber placeholder="1" value={quantity} />
+            <InputNumber
+              placeholder="0"
+              quantity={quantity}
+              handleAmountChange={handleInputAmountChange}
+              setNewQuantityValue={handleUpdateTheAmountValue}
+            />
             <RemoveButton content="Remover" />
           </CoffeeOrderCardQuantity>
         </CoffeeOrderCardNameAndQuantitySection>
       </CoffeeOrderCardInformationContainer>
-      <CoffeeOrderCardValue>R$ {strginSingularOrderPrice}</CoffeeOrderCardValue>
+      <CoffeeOrderCardValue>R$ {formattedPrice}</CoffeeOrderCardValue>
     </CoffeeOrderCardContainer>
   )
 }
