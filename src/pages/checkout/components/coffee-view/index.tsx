@@ -24,20 +24,20 @@ export function CoffeeInOrderView({
   const { productsInCart, setProductsInCart } = useCoffee()
 
   const singularOrderPrice = price * quantity
-
-  function handleInputAmountChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setNewAmount(Number(e.target.value))
-  }
-
   const formattedPrice = new Intl.NumberFormat('pt-BR', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 3,
   }).format(singularOrderPrice)
 
-  function handleUpdateTheAmountValue(newValue: number) {
-    setNewAmount(newValue)
+  function incrementQuantity() {
+    setNewAmount((state) => state + 1)
+  }
 
-    if (newValue <= 0) {
+  function decrementQuantity() {
+    if (amount >= 1) {
+      setNewAmount((state) => state - 1)
+    }
+    if (amount === 1) {
       setProductsInCart(productsInCart.filter((item) => item.id !== id))
     }
   }
@@ -70,8 +70,8 @@ export function CoffeeInOrderView({
             <InputNumber
               placeholder="0"
               quantity={amount}
-              handleAmountChange={handleInputAmountChange}
-              setNewQuantityValue={handleUpdateTheAmountValue}
+              handleAddOneToAmount={incrementQuantity}
+              handleRemoveOneToAmount={decrementQuantity}
             />
             <RemoveButton content="Remover" onClick={handleRemoveItemOfCart} />
           </CoffeeOrderCardQuantity>
