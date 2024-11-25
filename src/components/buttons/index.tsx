@@ -21,7 +21,11 @@ interface AddCartButtonProps
 }
 
 export function SubmitButton({ content, ...rest }: ButtonProps) {
-  return <SubmitButtonContainer {...rest}>{content}</SubmitButtonContainer>
+  return (
+    <SubmitButtonContainer type="submit" {...rest}>
+      {content}
+    </SubmitButtonContainer>
+  )
 }
 
 export function RemoveButton({ content, ...rest }: ButtonProps) {

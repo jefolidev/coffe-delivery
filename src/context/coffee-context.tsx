@@ -1,4 +1,5 @@
 import { createContext, useState } from 'react'
+import { z } from 'zod'
 import type {
   CoffeeIdTypes,
   CoffeeItemProps,
@@ -18,14 +19,31 @@ interface CoffeeCartProviderProps {
 
 export interface CoffeeCartContextProps {
   productsInCart: CoffeeCartData[]
+  deliveryInformations: AddressProps | undefined
   setProductsInCart: React.Dispatch<React.SetStateAction<CoffeeCartData[]>>
   handleAddProductInCart: (coffee: CoffeeItemProps, quantity: number) => void
+  handleSendOrderToDelivery: (data: AddressProps) => void
 }
 
 export const CoffeeCartContext = createContext({} as CoffeeCartContextProps)
 
+export const addressInformationsSchema = z.object({
+  cep: z.string().min(8),
+  street: z.string().min(1),
+  number: z.number().min(1),
+  complement: z.string(),
+  neighborhood: z.string().min(1),
+  city: z.string().min(1),
+  federal_unity: z.string().min(2).max(2),
+})
+
+export type AddressProps = z.infer<typeof addressInformationsSchema>
+
 export function CoffeeCartProvider({ children }: CoffeeCartProviderProps) {
   const [productsInCart, setProductsInCart] = useState<CoffeeCartData[]>([])
+  const [deliveryInformations, setDeliveryInformations] = useState<
+    AddressProps | undefined
+  >(undefined)
 
   function handleAddProductInCart(coffee: CoffeeItemProps, quantity: number) {
     const productToAddInCart: CoffeeCartData = {
@@ -51,9 +69,22 @@ export function CoffeeCartProvider({ children }: CoffeeCartProviderProps) {
       : setProductsInCart((prevState) => [...prevState, productToAddInCart])
   }
 
+  function handleSendOrderToDelivery(data: AddressProps) {
+    if (!data) {
+      throw new Error('Insira as informações do endereço!')
+    }
+    setDeliveryInformations(data)
+  }
+
   return (
     <CoffeeCartContext.Provider
-      value={{ productsInCart, setProductsInCart, handleAddProductInCart }}
+      value={{
+        productsInCart,
+        deliveryInformations,
+        setProductsInCart,
+        handleAddProductInCart,
+        handleSendOrderToDelivery,
+      }}
     >
       {children}
     </CoffeeCartContext.Provider>

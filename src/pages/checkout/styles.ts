@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { DefaultInput } from '../../components/inputs/styles'
 
-export const CheckoutContainer = styled.main`
+export const CheckoutContainer = styled.form`
   display: grid;
   grid-template-columns: 1.5fr 1fr;
   gap: 2rem;
@@ -62,6 +62,34 @@ export const PaymentMethodHeader = styled(AddressInformationHeader)``
 export const PaymentMethodHeaderText = styled(
   AdressAndPaymentHeaderTextDefault
 )``
+
+export const PaymentMethodContent = styled.div`
+  display: flex;
+  gap: 0.75rem;
+  justify-content: space-evenly;
+`
+
+export const PaymentMethodOption = styled.button`
+  background-color: ${(props) => props.theme['purple-300']};
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  padding: 1rem;
+  border-radius: 0.375rem;
+
+  flex: 1 0 0;
+`
+
+export const PaymentMethodCardIcon = styled.img`
+  width: 1.25rem;
+  height: 1.25rem;
+`
+export const PaymentMethodCardText = styled.span`
+  color: ${(props) => props.theme['gray-700']};
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+`
 
 export const OrderInformationContainer = styled.div`
   display: flex;

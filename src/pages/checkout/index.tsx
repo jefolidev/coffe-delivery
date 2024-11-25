@@ -1,3 +1,4 @@
+import { Divisor } from './components/coffee-view/styles'
 import {
   AddressAndPaymentInformationContainer,
   AddressInformationContainer,
@@ -15,9 +16,13 @@ import {
   OrderInformationContainer,
   OrderInformationContent,
   OrderPriceWrapper,
+  PaymentMethodCardIcon,
+  PaymentMethodCardText,
   PaymentMethodContainer,
+  PaymentMethodContent,
   PaymentMethodHeader,
   PaymentMethodHeaderText,
+  PaymentMethodOption,
   TextOrder,
   TotalItensPriceRow,
   TotalOrderValue,
@@ -26,15 +31,31 @@ import {
 } from './styles'
 
 import { SubmitButton } from '../../components/buttons'
+import { CoffeeInOrderView } from './components/coffee-view'
+
+import { zodResolver } from '@hookform/resolvers/zod'
+
+import { useForm } from 'react-hook-form'
+import { useCoffee } from '../../hooks/useCoffe'
 
 import paymentIcon from '../../assets/icons/dollar.svg'
 import pinIcon from '../../assets/icons/location-pin-checkout.svg'
-import { useCoffee } from '../../hooks/useCoffe'
-import { CoffeeInOrderView } from './components/coffee-view'
-import { Divisor } from './components/coffee-view/styles'
+
+import creditIcon from '../../assets/icons/payment-methods/cc.svg'
+import debitIcon from '../../assets/icons/payment-methods/dc.svg'
+import moneyIcon from '../../assets/icons/payment-methods/money.svg'
+
+import {
+  type AddressProps,
+  addressInformationsSchema,
+} from '../../context/coffee-context'
 
 export function Checkout() {
-  const { productsInCart } = useCoffee()
+  const { productsInCart, handleSendOrderToDelivery, deliveryInformations } =
+    useCoffee()
+  const { register, handleSubmit } = useForm<AddressProps>({
+    resolver: zodResolver(addressInformationsSchema),
+  })
 
   const valueOfEachProductInCart = productsInCart.map((item) => {
     return item.price * item.quantity
@@ -45,7 +66,9 @@ export function Checkout() {
     0
   )
 
-  const totalValueOfProductsAndFrete = totalValueOfAllProductsInCart + 3.5
+  const fretePrice = 3.5
+  const totalValueOfProductsAndFrete =
+    totalValueOfAllProductsInCart + fretePrice
 
   function formatValueForBRModel(price: number) {
     return new Intl.NumberFormat('pt-BR', {
@@ -53,9 +76,10 @@ export function Checkout() {
       maximumFractionDigits: 3,
     }).format(price)
   }
+  console.log(deliveryInformations)
 
   return (
-    <CheckoutContainer>
+    <CheckoutContainer onSubmit={handleSubmit(handleSendOrderToDelivery)}>
       <AddressAndPaymentInformationContainer>
         <h3>Complete seu Pedido</h3>
         <AddressInformationContainer>
@@ -68,16 +92,31 @@ export function Checkout() {
           </AddressInformationHeader>
 
           <AddressInformationInputWrapper>
-            <CPFInputTextContainer placeholder="CPF" />
-            <InputTextContainer placeholder="Rua" />
+            <CPFInputTextContainer placeholder="CEP" {...register('cep')} />
+            <InputTextContainer placeholder="Rua" {...register('street')} />
             <HomeRowInformation>
-              <InputTextContainer placeholder="Número" />
-              <BigInputTextContainer placeholder="Complemento" />
+              <InputTextContainer
+                placeholder="Número"
+                {...register('number', { valueAsNumber: true })}
+              />
+              <BigInputTextContainer
+                placeholder="Complemento"
+                {...register('complement')}
+              />
             </HomeRowInformation>
             <LocationRowInformation>
-              <InputTextContainer placeholder="Bairro" />
-              <BigInputTextContainer placeholder="Cidade" />
-              <BigInputTextContainer placeholder="UF" />
+              <InputTextContainer
+                placeholder="Bairro"
+                {...register('neighborhood')}
+              />
+              <BigInputTextContainer
+                placeholder="Cidade"
+                {...register('city')}
+              />
+              <BigInputTextContainer
+                placeholder="UF"
+                {...register('federal_unity')}
+              />
             </LocationRowInformation>
           </AddressInformationInputWrapper>
         </AddressInformationContainer>
@@ -91,6 +130,20 @@ export function Checkout() {
               </p>
             </PaymentMethodHeaderText>
           </PaymentMethodHeader>
+          <PaymentMethodContent>
+            <PaymentMethodOption>
+              <PaymentMethodCardIcon src={creditIcon} />
+              <PaymentMethodCardText>Cartão de Crédito</PaymentMethodCardText>
+            </PaymentMethodOption>
+            <PaymentMethodOption>
+              <PaymentMethodCardIcon src={debitIcon} />
+              <PaymentMethodCardText>Cartão de Débito</PaymentMethodCardText>
+            </PaymentMethodOption>
+            <PaymentMethodOption>
+              <PaymentMethodCardIcon src={moneyIcon} />
+              <PaymentMethodCardText>Dinheiro</PaymentMethodCardText>
+            </PaymentMethodOption>
+          </PaymentMethodContent>
         </PaymentMethodContainer>
       </AddressAndPaymentInformationContainer>
       <OrderInformationContainer>
@@ -132,10 +185,7 @@ export function Checkout() {
                     )}`}
                   </TotalOrderValue>
                 </TotalPriceRow>
-                <SubmitButton
-                  content="Confirmar Pedido"
-                  disabled={productsInCart.length < 1}
-                />
+                <SubmitButton content="Confirmar Pedido" />
               </OrderPriceWrapper>
             </>
           )}
