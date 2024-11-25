@@ -43,6 +43,7 @@ import creditIcon from '../../assets/icons/payment-methods/cc.svg'
 import debitIcon from '../../assets/icons/payment-methods/dc.svg'
 import moneyIcon from '../../assets/icons/payment-methods/money.svg'
 
+import { useNavigate } from 'react-router-dom'
 import { addressInformationsSchema } from '../../context/coffee-context'
 import { Radio } from './components/radio'
 
@@ -60,11 +61,19 @@ interface FormInputs {
 }
 
 export function Checkout() {
-  const { productsInCart, handleSendOrderToDelivery } = useCoffee()
+  const {
+    productsInCart,
+    deliveryInformations,
+    handleSendOrderToDelivery,
+
+    setProductsInCart,
+  } = useCoffee()
 
   const { register, handleSubmit, watch } = useForm<FormInputs>({
     resolver: zodResolver(addressInformationsSchema),
   })
+
+  const navigate = useNavigate()
 
   const selectedPaymentMethod = watch('payment_method')
 
@@ -86,6 +95,16 @@ export function Checkout() {
       minimumFractionDigits: 2,
       maximumFractionDigits: 3,
     }).format(price)
+  }
+
+  function handleClickSendOrderToDelivery() {
+    if (!deliveryInformations) {
+      alert('Informe seu endereço.')
+      return new Error('Informe seu endereço.')
+    }
+
+    navigate('/success')
+    setProductsInCart([])
   }
 
   return (
@@ -206,7 +225,11 @@ export function Checkout() {
                     )}`}
                   </TotalOrderValue>
                 </TotalPriceRow>
-                <SubmitButton content="Confirmar Pedido" />
+                <SubmitButton
+                  content="Confirmar Pedido"
+                  type="submit"
+                  onClick={handleClickSendOrderToDelivery}
+                />
               </OrderPriceWrapper>
             </>
           )}

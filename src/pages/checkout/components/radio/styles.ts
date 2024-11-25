@@ -9,13 +9,11 @@ export const RadioContainer = styled.label`
   border-radius: 6px;
   border: 1px solid transparent;
   background-color: ${(props) => props.theme['purple-300']};
-  color: ${(props) => props.theme['gray-700']};
-  text-transform: uppercase;
 
   flex-wrap: wrap;
-  font-size: var(--text-xs);
+  font-size: 1rem;
 
-  transition: all 0.2s;
+  transition: all 0.1s;
 
   &:hover {
     background-color: ${(props) => props.theme['base-hover']};
@@ -28,5 +26,11 @@ export const RadioContainer = styled.label`
 
   input {
     display: none;
+  }
+
+  span {
+    color: ${(props) => props.theme['gray-700']};
+    text-transform: uppercase;
+    font-size: var(--text-xs);
   }
 `
