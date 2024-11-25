@@ -60,8 +60,7 @@ interface FormInputs {
 }
 
 export function Checkout() {
-  const { productsInCart, handleSendOrderToDelivery, deliveryInformations } =
-    useCoffee()
+  const { productsInCart, handleSendOrderToDelivery } = useCoffee()
 
   const { register, handleSubmit, watch } = useForm<FormInputs>({
     resolver: zodResolver(addressInformationsSchema),
@@ -88,7 +87,6 @@ export function Checkout() {
       maximumFractionDigits: 3,
     }).format(price)
   }
-  console.log(deliveryInformations)
 
   return (
     <CheckoutContainer onSubmit={handleSubmit(handleSendOrderToDelivery)}>
