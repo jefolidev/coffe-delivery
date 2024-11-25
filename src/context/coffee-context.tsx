@@ -35,6 +35,7 @@ export const addressInformationsSchema = z.object({
   neighborhood: z.string().min(1),
   city: z.string().min(1),
   federal_unity: z.string().min(2).max(2),
+  payment_method: z.enum(['credit', 'debit', 'cash']),
 })
 
 export type AddressProps = z.infer<typeof addressInformationsSchema>

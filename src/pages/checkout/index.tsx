@@ -17,12 +17,10 @@ import {
   OrderInformationContent,
   OrderPriceWrapper,
   PaymentMethodCardIcon,
-  PaymentMethodCardText,
   PaymentMethodContainer,
   PaymentMethodContent,
   PaymentMethodHeader,
   PaymentMethodHeaderText,
-  PaymentMethodOption,
   TextOrder,
   TotalItensPriceRow,
   TotalOrderValue,
@@ -45,17 +43,31 @@ import creditIcon from '../../assets/icons/payment-methods/cc.svg'
 import debitIcon from '../../assets/icons/payment-methods/dc.svg'
 import moneyIcon from '../../assets/icons/payment-methods/money.svg'
 
-import {
-  type AddressProps,
-  addressInformationsSchema,
-} from '../../context/coffee-context'
+import { addressInformationsSchema } from '../../context/coffee-context'
+import { Radio } from './components/radio'
+
+type PaymentMethods = 'credit' | 'debit' | 'cash'
+
+interface FormInputs {
+  cep: string
+  street: string
+  number: number
+  complement: string
+  neighborhood: string
+  city: string
+  federal_unity: string
+  payment_method: PaymentMethods
+}
 
 export function Checkout() {
   const { productsInCart, handleSendOrderToDelivery, deliveryInformations } =
     useCoffee()
-  const { register, handleSubmit } = useForm<AddressProps>({
+
+  const { register, handleSubmit, watch } = useForm<FormInputs>({
     resolver: zodResolver(addressInformationsSchema),
   })
+
+  const selectedPaymentMethod = watch('payment_method')
 
   const valueOfEachProductInCart = productsInCart.map((item) => {
     return item.price * item.quantity
@@ -131,18 +143,29 @@ export function Checkout() {
             </PaymentMethodHeaderText>
           </PaymentMethodHeader>
           <PaymentMethodContent>
-            <PaymentMethodOption>
-              <PaymentMethodCardIcon src={creditIcon} />
-              <PaymentMethodCardText>Cartão de Crédito</PaymentMethodCardText>
-            </PaymentMethodOption>
-            <PaymentMethodOption>
-              <PaymentMethodCardIcon src={debitIcon} />
-              <PaymentMethodCardText>Cartão de Débito</PaymentMethodCardText>
-            </PaymentMethodOption>
-            <PaymentMethodOption>
-              <PaymentMethodCardIcon src={moneyIcon} />
-              <PaymentMethodCardText>Dinheiro</PaymentMethodCardText>
-            </PaymentMethodOption>
+            <Radio
+              isSelected={selectedPaymentMethod === 'credit'}
+              {...register('payment_method')}
+              value="credit"
+            >
+              <PaymentMethodCardIcon src={creditIcon} />{' '}
+              <span>Cartão de Crédito</span>
+            </Radio>
+            <Radio
+              isSelected={selectedPaymentMethod === 'debit'}
+              {...register('payment_method')}
+              value="debit"
+            >
+              <PaymentMethodCardIcon src={debitIcon} />{' '}
+              <span>Cartão de Débito</span>
+            </Radio>
+            <Radio
+              isSelected={selectedPaymentMethod === 'cash'}
+              {...register('payment_method')}
+              value="cash"
+            >
+              <PaymentMethodCardIcon src={moneyIcon} /> <span>Dinheiro</span>
+            </Radio>
           </PaymentMethodContent>
         </PaymentMethodContainer>
       </AddressAndPaymentInformationContainer>
