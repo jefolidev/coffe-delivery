@@ -28,7 +28,7 @@ export const InputWrapper = styled.div`
   border-radius: 6px;
 `
 
-export const InputNumberContainer = styled(DefaultInput)`
+export const InputNumberContainer = styled.span`
   font-size: var(--text-md);
   font-weight: 400;
 
@@ -46,6 +46,25 @@ export const InputNumberContainer = styled(DefaultInput)`
     display: none;
   }
 `
+
+// export const InputNumberContainer = styled(DefaultInput)`
+//   font-size: var(--text-md);
+//   font-weight: 400;
+
+//   color: ${(props) => props.theme['gray-900']};
+
+//   background-color: transparent;
+
+//   text-align: center;
+//   width: 1rem;
+//   -moz-appearance: none;
+//   appearance: none;
+
+//   &:-webkit-inner-spin-button,
+//   &:-webkit-outer-spin-button {
+//     display: none;
+//   }
+// `
 
 export const InputNumberButton = styled.button`
   background-color: transparent;

@@ -37,7 +37,7 @@ export function CoffeeInOrderView({
   function handleUpdateTheAmountValue(newValue: number) {
     setNewAmount(newValue)
 
-    if (newValue < 0) {
+    if (newValue <= 0) {
       setProductsInCart(productsInCart.filter((item) => item.id !== id))
     }
   }

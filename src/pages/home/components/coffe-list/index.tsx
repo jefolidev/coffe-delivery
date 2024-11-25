@@ -1,6 +1,3 @@
-import { useState } from 'react'
-import type { CoffeeCartData } from '../../../../context/coffee-context'
-import { useCoffee } from '../../../../hooks/useCoffe'
 import CoffeeCard from '../coffee-card'
 import {
   CoffeeHeader,
@@ -42,9 +39,6 @@ export interface CoffeeItemProps {
 }
 
 export function CoffeeList() {
-  const [amountOfProducts, setAmountOfProducts] = useState(0)
-  const { setProductsInCart, productsInCart } = useCoffee()
-
   const coffeeCard: CoffeeItemProps[] = [
     {
       id: 'CAETR',
@@ -164,46 +158,6 @@ export function CoffeeList() {
     },
   ]
 
-  function handleAddProductInCart(coffee: CoffeeItemProps, quantity: number) {
-    const productToAddInCart: CoffeeCartData = {
-      id: coffee.id,
-      coffee_name: coffee.name,
-      quantity,
-      price: coffee.price,
-      image_path: coffee.image_path,
-    }
-
-    const hasMoreThanOneSameProductInCart = productsInCart.some(
-      (item) => item.id === coffee.id
-    )
-
-    if (amountOfProducts === 0) {
-      return alert('Insira a quantidade de produtos.')
-    }
-
-    hasMoreThanOneSameProductInCart
-      ? setProductsInCart((prevState) =>
-          prevState.map((item) =>
-            item.id === coffee.id
-              ? { ...item, quantity: item.quantity + amountOfProducts }
-              : item
-          )
-        )
-      : setProductsInCart((prevState) => [...prevState, productToAddInCart])
-  }
-
-  function handleQuantityChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const newValue = Math.max(0, Number(e.target.value))
-
-    // if(e.target.)
-
-    setAmountOfProducts(newValue)
-  }
-
-  function setNewQuantityValue(newValue: number) {
-    setAmountOfProducts(Math.max(0, newValue))
-  }
-
   return (
     <CoffeeListWrapper>
       <CoffeeHeader>
@@ -212,18 +166,7 @@ export function CoffeeList() {
 
       <CoffeeListContent>
         {coffeeCard.map((card) => {
-          return (
-            <CoffeeCard
-              quantity={amountOfProducts}
-              setNewQuantityValue={setNewQuantityValue}
-              handleAmountChange={handleQuantityChange}
-              handleAddItemToCart={() =>
-                handleAddProductInCart(card, amountOfProducts)
-              }
-              key={card.id}
-              {...card}
-            />
-          )
+          return <CoffeeCard key={card.id} {...card} />
         })}
       </CoffeeListContent>
     </CoffeeListWrapper>

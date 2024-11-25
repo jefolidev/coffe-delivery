@@ -12,65 +12,57 @@ import {
   CoffeeTagContent,
 } from './styles'
 
+import { useState } from 'react'
+import { useCoffee } from '../../../../hooks/useCoffe'
 import type { CoffeeItemProps } from '../coffe-list'
 
-interface CoffeeCardProps extends CoffeeItemProps {
-  quantity: number
-  handleAddItemToCart: (coffee: CoffeeItemProps, quantity: number) => void
-  handleAmountChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-  setNewQuantityValue: (newValue: number) => void
-}
+export default function CoffeeCard(coffee: CoffeeItemProps) {
+  const [quantity, setQuantity] = useState(1)
+  const { handleAddProductInCart } = useCoffee()
 
-export default function CoffeeCard({
-  id,
-  name,
-  description,
-  price,
-  tags,
-  image_path,
-  quantity,
-  setNewQuantityValue,
-  handleAddItemToCart,
-  handleAmountChange,
-}: CoffeeCardProps) {
+  function incrementQuantity() {
+    setQuantity((state) => state + 1)
+  }
+
+  function decrementQuantity() {
+    if (quantity >= 1) {
+      setQuantity((state) => state - 1)
+    }
+  }
+
   return (
     <CoffeeCardContainer>
       <img
-        src={`./src/assets/coffees/${image_path}.svg`}
-        alt={`Imagem do Café: ${name}`}
+        src={`./src/assets/coffees/${coffee.image_path}.svg`}
+        alt={`Imagem do Café: ${coffee.name}`}
       />
       <CoffeeTagContainer>
-        {tags.map((tag) => {
+        {coffee.tags.map((tag) => {
           return <CoffeeTagContent key={tag}>{tag}</CoffeeTagContent>
         })}
       </CoffeeTagContainer>
 
       <CoffeeCardContent>
-        <h3>{name}</h3>
-        <CoffeeCardDescription>{description}</CoffeeCardDescription>
+        <h3>{coffee.name}</h3>
+        <CoffeeCardDescription>{coffee.description}</CoffeeCardDescription>
       </CoffeeCardContent>
 
       <CoffeeCardBuyContainer>
         <CoffeCardUnitValue>
           R$
           <CoffeeCardPrice>
-            {price.toFixed(2).replace('.', ',')}
+            {coffee.price.toFixed(2).replace('.', ',')}
           </CoffeeCardPrice>
         </CoffeCardUnitValue>
 
         <CoffeeCardAddToCartContainer>
           <InputNumber
             quantity={quantity}
-            setNewQuantityValue={setNewQuantityValue}
-            handleAmountChange={handleAmountChange}
+            handleAddOneToAmount={incrementQuantity}
+            handleRemoveOneToAmount={decrementQuantity}
           />
           <AddCartButton
-            onClick={() =>
-              handleAddItemToCart(
-                { id, name, price, description, tags, image_path },
-                quantity
-              )
-            }
+            onClick={() => handleAddProductInCart(coffee, quantity)}
           />
         </CoffeeCardAddToCartContainer>
       </CoffeeCardBuyContainer>
