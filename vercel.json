@@ -19,5 +19,11 @@
         }
       ]
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/coffee-delivery/assets/*",
+      "destination": "/dist/assets/"
+    }
   ]
 }
