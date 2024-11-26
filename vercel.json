@@ -1,0 +1,23 @@
+{
+  "builds": [
+    {
+      "src": "index.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "assets/**/*.js",
+      "use": "@vercel/static"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/coffee-delivery/assets/*.js",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/javascript"
+        }
+      ]
+    }
+  ]
+}
