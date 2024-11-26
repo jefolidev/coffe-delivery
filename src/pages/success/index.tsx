@@ -38,7 +38,6 @@ export function SuccessPage() {
     }, 5000)
   }, [navigate, clearOldOrderInformations])
 
-  //TODO - Verificar o pq tem que clicar duas vezes no método de pagamento pra poder realmente confirmar o pedido
   return (
     <SuccessContainer>
       <SuccessInformations>

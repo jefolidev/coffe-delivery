@@ -6,6 +6,11 @@ export const CheckoutContainer = styled.form`
   grid-template-columns: 1.5fr 1fr;
   gap: 2rem;
   margin-top: 4rem;
+
+  @media (max-width: 1024px) {
+    display: flex;
+    flex-direction: column;
+  }
 `
 export const AddressAndPaymentInformationContainer = styled.div`
   display: flex;
@@ -53,6 +58,10 @@ export const AddressInformationInputWrapper = styled.div`
 const AdressInformationInputRowDefault = styled.div`
   display: flex;
   gap: 0.75rem;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
 `
 export const HomeRowInformation = styled(AdressInformationInputRowDefault)``
 export const LocationRowInformation = styled(AdressInformationInputRowDefault)``
@@ -66,7 +75,10 @@ export const PaymentMethodHeaderText = styled(
 export const PaymentMethodContent = styled.div`
   display: flex;
   gap: 0.75rem;
-  justify-content: space-evenly;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
 `
 
 export const PaymentMethodOption = styled.button`
@@ -160,4 +172,8 @@ export const BigInputTextContainer = styled(InputTextContainer)`
 `
 export const CPFInputTextContainer = styled(InputTextContainer)`
   max-width: 40%;
+
+  @media (max-width: 1024px) {
+    max-width: 100%;
+  }
 `

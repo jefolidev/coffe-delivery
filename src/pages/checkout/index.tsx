@@ -61,12 +61,8 @@ interface FormInputs {
 }
 
 export function Checkout() {
-  const {
-    productsInCart,
-    deliveryInformations,
-    handleSendOrderToDelivery,
-    setProductsInCart,
-  } = useCoffee()
+  const { productsInCart, handleSendOrderToDelivery, setProductsInCart } =
+    useCoffee()
 
   const { register, handleSubmit, watch } = useForm<FormInputs>({
     resolver: zodResolver(addressInformationsSchema),

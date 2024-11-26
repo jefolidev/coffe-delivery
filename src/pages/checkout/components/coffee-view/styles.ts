@@ -12,6 +12,10 @@ export const CoffeeOrderCardInformationContainer = styled.div`
 export const CoffeeOrderCardImage = styled.img`
   max-width: 4.5rem;
   max-height: 4.5rem;
+
+  @media (max-width: 480px) {
+    width: 3.5rem;
+  }
 `
 
 export const CoffeeOrderCardNameAndQuantitySection = styled.div`
@@ -21,8 +25,11 @@ export const CoffeeOrderCardNameAndQuantitySection = styled.div`
 `
 export const CoffeeOrderCardName = styled.span`
   color: ${(props) => props.theme['gray-800']};
-  font-weight: 400;
   font-size: var(--text-md);
+
+  @media (max-width: 480px) {
+    font-size: var(--text-sm);
+  }
 `
 
 export const CoffeeOrderCardQuantity = styled.div`
@@ -36,6 +43,11 @@ export const CoffeeOrderCardValue = styled.span`
   font-size: var(--text-md);
   font-weight: 700;
   color: ${(props) => props.theme['gray-700']};
+
+  @media (max-width: 480px) {
+    font-size: var(--text-sm);
+    text-wrap: nowrap;
+  }
 `
 
 export const Divisor = styled.div`

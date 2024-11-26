@@ -2,7 +2,6 @@ import styled from 'styled-components'
 
 export const RadioContainer = styled.label`
   padding: 16px;
-  width: 100%;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -14,6 +13,8 @@ export const RadioContainer = styled.label`
   font-size: 1rem;
 
   transition: all 0.1s;
+
+  flex: 1;
 
   &:hover {
     background-color: ${(props) => props.theme['base-hover']};

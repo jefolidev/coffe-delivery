@@ -1,7 +1,5 @@
 import styled from 'styled-components'
 
-export const MainContainer = styled.main``
-
 export const HeroWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -10,13 +8,35 @@ export const HeroWrapper = styled.div`
 
   margin-top: 6rem;
   margin-bottom: 6.75rem;
+
+  @media (max-width: 480px) {
+    & > img {
+      display: none;
+    }
+  }
+  @media (max-width: 1024px) {
+    & > img {
+      width: 20rem;
+    }
+  }
 `
 
 export const HeroTextWrapper = styled.div`
   display: flex;
   flex-direction: column;
 
-  min-width: 36.75rem;
+  h1 {
+    margin-bottom: 1rem;
+  }
+
+  @media (max-width: 1024px) {
+    h1 {
+      font-size: var(--title-lg);
+    }
+    & > span {
+      font-size: var(--text-lg);
+    }
+  }
 `
 
 export const HeroItensContainer = styled.div`
@@ -25,6 +45,14 @@ export const HeroItensContainer = styled.div`
   gap: 1.25rem;
 
   margin-top: 4rem;
+
+  img {
+    width: 2rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: var(--text-xs);
+  }
 `
 
 export const HeroItem = styled.div`

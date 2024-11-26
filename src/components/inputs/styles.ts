@@ -20,7 +20,7 @@ export const InputWrapper = styled.div`
   align-items: center;
 
   max-width: 9rem;
-  width: 4.5rem;
+  /* width: 4.5rem; */
   height: 2rem;
   padding: 0.5rem;
 
@@ -46,25 +46,6 @@ export const InputNumberContainer = styled.span`
     display: none;
   }
 `
-
-// export const InputNumberContainer = styled(DefaultInput)`
-//   font-size: var(--text-md);
-//   font-weight: 400;
-
-//   color: ${(props) => props.theme['gray-900']};
-
-//   background-color: transparent;
-
-//   text-align: center;
-//   width: 1rem;
-//   -moz-appearance: none;
-//   appearance: none;
-
-//   &:-webkit-inner-spin-button,
-//   &:-webkit-outer-spin-button {
-//     display: none;
-//   }
-// `
 
 export const InputNumberButton = styled.button`
   background-color: transparent;

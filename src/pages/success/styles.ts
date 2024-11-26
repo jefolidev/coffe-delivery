@@ -6,6 +6,19 @@ export const SuccessContainer = styled.main`
   gap: 7rem;
 
   margin-top: 7rem;
+
+  @media (max-width: 480px) {
+    display: flex;
+    & > img {
+      display: none;
+    }
+  }
+  @media (max-width: 1024px) {
+    display: flex;
+    & > img {
+      width: 20rem;
+    }
+  }
 `
 export const SuccessInformations = styled.div`
   display: flex;
@@ -17,6 +30,10 @@ export const SuccessHeader = styled.header`
   h1 {
     color: ${(props) => props.theme['yellow-500']};
     font-size: var(--title-lg);
+  }
+
+  @media (max-width: 480px) {
+    text-align: center;
   }
 `
 export const SuccessContent = styled.div`
