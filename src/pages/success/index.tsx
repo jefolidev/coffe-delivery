@@ -11,10 +11,14 @@ import clockIcon from '../../assets/icons/hero-icons/clock.svg'
 import moneyIcon from '../../assets/icons/method.svg'
 import locationIcon from '../../assets/icons/success-location.svg'
 
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import brand from '../../assets/success-brand.svg'
 
 export function SuccessPage() {
-  const { deliveryInformations } = useCoffee()
+  const { deliveryInformations, clearOldOrderInformations } = useCoffee()
+
+  const navigate = useNavigate()
 
   const paymentMethodMap: Record<string, string> = {
     cash: 'Dinheiro',
@@ -27,8 +31,14 @@ export function SuccessPage() {
       'Método não definido'
     : 'Método não definido'
 
+  useEffect(() => {
+    setTimeout(() => {
+      navigate('/')
+      clearOldOrderInformations()
+    }, 5000)
+  }, [navigate, clearOldOrderInformations])
+
   //TODO - Verificar o pq tem que clicar duas vezes no método de pagamento pra poder realmente confirmar o pedido
-  //TODO - Faazer com que nao de pra acessar /success atualizando a página
   return (
     <SuccessContainer>
       <SuccessInformations>

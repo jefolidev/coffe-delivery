@@ -23,6 +23,7 @@ export interface CoffeeCartContextProps {
   setProductsInCart: React.Dispatch<React.SetStateAction<CoffeeCartData[]>>
   handleAddProductInCart: (coffee: CoffeeItemProps, quantity: number) => void
   handleSendOrderToDelivery: (data: AddressProps) => void
+  clearOldOrderInformations: () => void
 }
 
 export const CoffeeCartContext = createContext({} as CoffeeCartContextProps)
@@ -77,6 +78,10 @@ export function CoffeeCartProvider({ children }: CoffeeCartProviderProps) {
     setDeliveryInformations(data)
   }
 
+  function clearOldOrderInformations() {
+    setDeliveryInformations(undefined)
+  }
+
   return (
     <CoffeeCartContext.Provider
       value={{
@@ -85,6 +90,7 @@ export function CoffeeCartProvider({ children }: CoffeeCartProviderProps) {
         setProductsInCart,
         handleAddProductInCart,
         handleSendOrderToDelivery,
+        clearOldOrderInformations,
       }}
     >
       {children}

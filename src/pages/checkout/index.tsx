@@ -65,7 +65,6 @@ export function Checkout() {
     productsInCart,
     deliveryInformations,
     handleSendOrderToDelivery,
-
     setProductsInCart,
   } = useCoffee()
 
@@ -86,10 +85,6 @@ export function Checkout() {
     0
   )
 
-  const fretePrice = 3.5
-  const totalValueOfProductsAndFrete =
-    totalValueOfAllProductsInCart + fretePrice
-
   function formatValueForBRModel(price: number) {
     return new Intl.NumberFormat('pt-BR', {
       minimumFractionDigits: 2,
@@ -106,6 +101,12 @@ export function Checkout() {
     navigate('/success')
     setProductsInCart([])
   }
+
+  const fretePrice = 3.5
+  const totalValueOfProductsAndFrete =
+    totalValueOfAllProductsInCart + fretePrice
+
+  console.log(deliveryInformations)
 
   return (
     <CheckoutContainer onSubmit={handleSubmit(handleSendOrderToDelivery)}>
@@ -165,7 +166,7 @@ export function Checkout() {
               {...register('payment_method')}
               value="credit"
             >
-              <PaymentMethodCardIcon src={creditIcon} />{' '}
+              <PaymentMethodCardIcon src={creditIcon} />
               <span>Cartão de Crédito</span>
             </Radio>
             <Radio
@@ -173,7 +174,7 @@ export function Checkout() {
               {...register('payment_method')}
               value="debit"
             >
-              <PaymentMethodCardIcon src={debitIcon} />{' '}
+              <PaymentMethodCardIcon src={debitIcon} />
               <span>Cartão de Débito</span>
             </Radio>
             <Radio
