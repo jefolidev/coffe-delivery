@@ -92,12 +92,8 @@ export function Checkout() {
     }).format(price)
   }
 
-  function handleClickSendOrderToDelivery() {
-    if (!deliveryInformations) {
-      alert('Informe seu endereço.')
-      return new Error('Informe seu endereço.')
-    }
-
+  function handleCheckoutOrder(data: FormInputs) {
+    handleSendOrderToDelivery(data)
     navigate('/success')
     setProductsInCart([])
   }
@@ -106,10 +102,8 @@ export function Checkout() {
   const totalValueOfProductsAndFrete =
     totalValueOfAllProductsInCart + fretePrice
 
-  console.log(deliveryInformations)
-
   return (
-    <CheckoutContainer onSubmit={handleSubmit(handleSendOrderToDelivery)}>
+    <CheckoutContainer onSubmit={handleSubmit(handleCheckoutOrder)}>
       <AddressAndPaymentInformationContainer>
         <h3>Complete seu Pedido</h3>
         <AddressInformationContainer>
@@ -226,11 +220,7 @@ export function Checkout() {
                     )}`}
                   </TotalOrderValue>
                 </TotalPriceRow>
-                <SubmitButton
-                  content="Confirmar Pedido"
-                  type="submit"
-                  onClick={handleClickSendOrderToDelivery}
-                />
+                <SubmitButton content="Confirmar Pedido" type="submit" />
               </OrderPriceWrapper>
             </>
           )}

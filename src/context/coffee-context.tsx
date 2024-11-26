@@ -72,10 +72,21 @@ export function CoffeeCartProvider({ children }: CoffeeCartProviderProps) {
   }
 
   function handleSendOrderToDelivery(data: AddressProps) {
+    const orderInformation = {
+      cep: data.cep,
+      street: data.street,
+      number: data.number,
+      complement: data.complement,
+      neighborhood: data.neighborhood,
+      city: data.city,
+      federal_unity: data.federal_unity,
+      payment_method: data.payment_method,
+    }
+
     if (!data) {
       throw new Error('Insira as informações do endereço!')
     }
-    setDeliveryInformations(data)
+    setDeliveryInformations(orderInformation)
   }
 
   function clearOldOrderInformations() {
